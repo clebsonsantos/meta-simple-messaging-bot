@@ -27,9 +27,9 @@
    const VERIFY_TOKEN = process.env.VERIFY_TOKEN;
  
    // Parse the query params
-   let mode = req.query['hub_mode'];
-   let token = req.query['hub_verify_token'];
-   let challenge = req.query['hub_challenge'];
+   let mode = req.query['hub.mode'];
+   let token = req.query['hub.verify_token'];
+   let challenge = req.query['hub.challenge'];
  
    // Checks if a token and mode is in the query string of the request
    if (mode && token) {

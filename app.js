@@ -51,7 +51,6 @@
  // Creates the endpoint for your webhook
  app.post('/webhook', (req, res) => {
    let body = req.body;
-   console.log(body)
    // Checks if this is an event from a page subscription
    if (body.object === 'page') {
  
@@ -93,7 +92,7 @@
      // Create the payload for a basic text message, which
      // will be added to the body of your request to the Send API
      response = {
-       'text': `You sent the message: '${receivedMessage.text}'. Now send me an attachment!`
+       'text': `Você em enviou a mensagem: '${receivedMessage.text}'. Tente me enviar uma imagem!`
      };
    } else if (receivedMessage.attachments) {
  
@@ -105,18 +104,18 @@
          'payload': {
            'template_type': 'generic',
            'elements': [{
-             'title': 'Is this the right picture?',
-             'subtitle': 'Tap a button to answer.',
+             'title': 'Foi essa imagem que você me enviou?',
+             'subtitle': 'Escolha um dos botões:',
              'image_url': attachmentUrl,
              'buttons': [
                {
                  'type': 'postback',
-                 'title': 'Yes!',
+                 'title': 'Sim!',
                  'payload': 'yes',
                },
                {
                  'type': 'postback',
-                 'title': 'No!',
+                 'title': 'Não!',
                  'payload': 'no',
                }
              ],
@@ -139,9 +138,9 @@
  
    // Set the response based on the postback payload
    if (payload === 'yes') {
-     response = { 'text': 'Thanks!' };
+     response = { 'text': 'Obrigado!' };
    } else if (payload === 'no') {
-     response = { 'text': 'Oops, try sending another image.' };
+     response = { 'text': 'Oops, tente me enviar outra coisa.' };
    }
    // Send the message to acknowledge the postback
    callSendAPI(senderPsid, response);

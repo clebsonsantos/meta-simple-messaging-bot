@@ -1,3 +1,4 @@
+const config = require("./services/config");
 
  // Use dotenv to read .env vars into Node
  require('dotenv').config();
@@ -109,11 +110,11 @@ var users = {};
           }
         }
         let receiveMessage = new Receive(users[senderIgsid], webhookEvent);
-        if (webhookEvent.message) {
-          handleMessage(senderIgsid, webhookEvent.message);
-        } else if (webhookEvent.postback) {
-          handlePostback(senderIgsid, webhookEvent.postback);
-        }
+        // if (webhookEvent.message) {
+        //   handleMessage(senderIgsid, webhookEvent.message);
+        // } else if (webhookEvent.postback) {
+        //   handlePostback(senderIgsid, webhookEvent.postback);
+        // }
         return receiveMessage.handleMessage();
       });
     });
@@ -236,8 +237,15 @@ var users = {};
      }
    });
  }
- 
- // listen for requests :)
- var listener = app.listen(process.env.PORT, function() {
-   console.log('Your app is listening on port ' + listener.address().port);
- });
+ async function main() { 
+   config.checkEnvVariables();
+  
+  //  await GraphApi.setPageSubscriptions();
+   // listen for requests :)
+   var listener = app.listen(process.env.PORT, function() {
+     console.log('Your app is listening on port ' + listener.address().port);
+   });
+
+ }
+
+ main()

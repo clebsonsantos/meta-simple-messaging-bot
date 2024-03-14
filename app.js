@@ -1,5 +1,5 @@
 const config = require("./services/config");
-
+const path = require("path")
  // Use dotenv to read .env vars into Node
  require('dotenv').config();
  
@@ -21,12 +21,11 @@ var users = {};
  
  // Parse application/json
  app.use(json());
- 
- // Respond with 'Hello World' when a GET request is made to the homepage
- app.get('/', function (_req, res) {
-   res.send('Hello World');
- });
- 
+ app.use(express.static(path.join(__dirname, 'public')));
+
+//  app.get('/', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'public/index.html'));
+// });
  // Adds support for GET requests to our webhook
  app.get('/webhook', (req, res) => {
     console.log("request received", req.query)  
